@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="848" viewBox="0 0 480 848" fill="none">
+    <defs>
+        <linearGradient id="background" x1="30" y1="20" x2="450" y2="828" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FAFCF7"/>
+            <stop offset="1" stop-color="#EAF4E5"/>
+        </linearGradient>
+        <linearGradient id="accent" x1="80" y1="0" x2="400" y2="500" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#55A927"/>
+            <stop offset="1" stop-color="#205F26"/>
+        </linearGradient>
+    </defs>
+    <rect width="480" height="848" rx="28" fill="url(#background)"/>
+    <path d="M0 0h150L0 150V0Zm480 848H330l150-150v150Z" fill="url(#accent)"/>
+    <path d="M30 214c0-25 20-45 45-45h330" stroke="#D8E9D1" stroke-width="2"/>
+    <path d="M450 634c0 25-20 45-45 45H75" stroke="#D8E9D1" stroke-width="2"/>
+    <rect x="52" y="58" width="376" height="42" rx="21" fill="#E2F0DA"/>
+    <circle cx="77" cy="79" r="5" fill="#55A927"/>
+    <text x="94" y="84" fill="#205F26" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="2">SEMANA DE SISTEMAS · UES-FMO</text>
+    <circle cx="240" cy="268" r="76" fill="#E2F0DA"/>
+    <path d="M182 257c33-32 83-32 116 0M198 275c24-22 60-22 84 0m-65 19c13-12 33-12 46 0" stroke="url(#accent)" stroke-linecap="round" stroke-width="11"/>
+    <circle cx="240" cy="315" r="7" fill="#55A927"/>
+    <path d="M262 218c-2 28-17 49-42 61 1-28 15-49 42-61Z" fill="#55A927"/>
+    <path d="M226 278c10-15 20-27 34-40" stroke="#205F26" stroke-linecap="round" stroke-width="4"/>
+    <text x="240" y="405" fill="#173A1D" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" letter-spacing="5" text-anchor="middle">BIENVENIDOS A</text>
+    <text x="240" y="474" fill="#173A1D" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800" letter-spacing="-2" text-anchor="middle">SDS 2026</text>
+    <text x="240" y="518" fill="#368B2D" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800" letter-spacing="5" text-anchor="middle">GREEN IoT</text>
+    <path d="M105 552h270" stroke="#C9DEC0" stroke-width="2"/>
+    <text x="240" y="603" fill="#173A1D" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="middle">Patrocinadores</text>
+    <text x="240" y="638" fill="#526052" font-family="Arial, Helvetica, sans-serif" font-size="19" text-anchor="middle">oficiales de la SDS</text>
+    <text x="240" y="806" fill="#637163" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="1.5" text-anchor="middle">UNIVERSIDAD DE EL SALVADOR · FMO</text>
+</svg>

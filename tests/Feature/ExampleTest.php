@@ -14,6 +14,12 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertOk()
+            ->assertSee('Patrocinadores de la SDS')
+            ->assertSee('images/logo-sds-green-iot.png')
+            ->assertSee('<video', false)
+            ->assertSee('Reproducir video de los patrocinadores')
+            ->assertSee('videos/patrocinadores-sds.mp4')
+            ->assertSee('images/patrocinadores-poster.svg');
     }
 }
