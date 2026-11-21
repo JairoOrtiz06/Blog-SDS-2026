@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#173a1d">
@@ -46,162 +47,9 @@
             min-height: 100vh;
         }
 
-        .sidebar {
-            position: fixed;
-            inset: 0 auto 0 0;
-            z-index: 2;
-            display: flex;
-            width: 264px;
-            flex-direction: column;
-            padding: 1.5rem 1rem 1rem;
-            color: #f5f8f2;
-            background: var(--green-950);
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.25rem 0.5rem 1.75rem;
-            color: white;
-            text-decoration: none;
-        }
-
-        .brand-mark {
-            display: grid;
-            width: 2.5rem;
-            height: 2.5rem;
-            flex: 0 0 auto;
-            place-items: center;
-            border: 1px solid rgb(255 255 255 / 18%);
-            border-radius: 0.75rem;
-            color: #d7edc9;
-            background: rgb(255 255 255 / 9%);
-        }
-
-        .brand-mark svg {
-            width: 1.35rem;
-            height: 1.35rem;
-        }
-
-        .brand-name {
-            display: block;
-            font-size: 0.94rem;
-            font-weight: 800;
-            letter-spacing: 0.025em;
-        }
-
-        .brand-caption {
-            display: block;
-            margin-top: 0.25rem;
-            color: #c1d7b8;
-            font-size: 0.72rem;
-        }
-
-        .nav-label {
-            margin: 0 0.7rem 0.65rem;
-            color: #a5cd8e;
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        .menu {
-            display: grid;
-            gap: 0.3rem;
-        }
-
-        .menu a {
-            display: flex;
-            min-height: 2.8rem;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.7rem 0.75rem;
-            border-radius: 0.65rem;
-            color: #dce8d8;
-            font-size: 0.88rem;
-            text-decoration: none;
-            transition: background-color 150ms ease, color 150ms ease;
-        }
-
-        .menu a:hover,
-        .menu a:focus-visible {
-            color: white;
-            background: rgb(255 255 255 / 9%);
-        }
-
-        .menu a.active {
-            color: white;
-            background: #287b2d;
-            box-shadow: inset 3px 0 #c5e5ae;
-        }
-
-        .menu svg {
-            width: 1.15rem;
-            height: 1.15rem;
-            flex: 0 0 auto;
-            opacity: 0.9;
-        }
-
-        .sidebar-bottom {
-            margin-top: auto;
-        }
-
-        .sidebar-divider {
-            height: 1px;
-            margin: 1rem 0;
-            border: 0;
-            background: rgb(255 255 255 / 13%);
-        }
-
-        .profile {
-            overflow: hidden;
-            padding: 0.65rem 0.7rem;
-            border: 1px solid rgb(255 255 255 / 12%);
-            border-radius: 0.7rem;
-            background: rgb(255 255 255 / 6%);
-        }
-
-        .profile-name,
-        .profile-email {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .profile-name {
-            font-size: 0.82rem;
-            font-weight: 700;
-        }
-
-        .profile-email {
-            margin-top: 0.25rem;
-            color: #c1d7b8;
-            font-size: 0.72rem;
-        }
-
-        .logout {
-            width: 100%;
-            margin-top: 0.65rem;
-            padding: 0.65rem 0.75rem;
-            border: 1px solid rgb(255 255 255 / 15%);
-            border-radius: 0.65rem;
-            color: #f5f8f2;
-            background: transparent;
-            cursor: pointer;
-            text-align: left;
-            transition: background-color 150ms ease;
-        }
-
-        .logout:hover,
-        .logout:focus-visible {
-            background: rgb(255 255 255 / 9%);
-        }
-
         .main {
             min-height: 100vh;
-            margin-left: 264px;
+            margin-left: 0;
             padding: 0 clamp(1.25rem, 4vw, 3.5rem) 2rem;
         }
 
@@ -221,26 +69,6 @@
 
         .breadcrumb strong {
             color: var(--green-950);
-        }
-
-        .view-site {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            color: var(--green-900);
-            font-size: 0.82rem;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .view-site:hover {
-            color: var(--green-700);
-            text-decoration: underline;
-        }
-
-        .view-site svg {
-            width: 1rem;
-            height: 1rem;
         }
 
         .content {
@@ -312,26 +140,63 @@
             display: inline-flex;
             flex: 0 0 auto;
             align-items: center;
-            gap: 0.55rem;
-            padding: 0.75rem 1rem;
-            border: 1px solid rgb(255 255 255 / 35%);
+            justify-content: center;
+            min-height: 2.9rem;
+            padding: 0.75rem 1.15rem;
+            border: 1px solid white;
             border-radius: 0.65rem;
-            color: white;
-            background: rgb(255 255 255 / 9%);
+            color: var(--green-950);
+            background: white;
             font-size: 0.83rem;
             font-weight: 700;
             text-decoration: none;
-            transition: background-color 150ms ease;
+            transition: background-color 150ms ease, transform 150ms ease;
         }
 
         .welcome-action:hover,
         .welcome-action:focus-visible {
-            background: rgb(255 255 255 / 17%);
+            background: #eaf4e5;
+            transform: translateY(-1px);
         }
 
-        .welcome-action svg {
-            width: 1rem;
-            height: 1rem;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            min-width: 0;
+            padding: 1.15rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 0.85rem;
+            background: white;
+            box-shadow: 0 3px 12px rgb(23 58 29 / 3%);
+        }
+
+        .stat-label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            display: block;
+            margin-top: 0.55rem;
+            color: var(--green-950);
+            font-size: clamp(1.7rem, 3vw, 2.2rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .stat-detail {
+            display: block;
+            margin-top: 0.55rem;
+            color: var(--text-muted);
+            font-size: 0.72rem;
         }
 
         .section-heading {
@@ -412,23 +277,28 @@
         .card-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
             margin-top: auto;
-            padding-top: 1.1rem;
+            padding: 0.65rem 0.85rem;
+            border: 1px solid #d5e5ce;
+            border-radius: 0.55rem;
             color: var(--green-900);
+            background: #fbfdf9;
             font-size: 0.82rem;
             font-weight: 700;
             text-decoration: none;
+            transition: border-color 150ms ease, background-color 150ms ease;
         }
 
-        .card-link:hover {
-            color: var(--green-700);
-            text-decoration: underline;
+        .card-link:hover,
+        .card-link:focus-visible {
+            border-color: #9dc78d;
+            background: var(--green-100);
         }
 
-        .card-link svg {
-            width: 0.95rem;
-            height: 0.95rem;
+        .card-link:focus-visible,
+        .welcome-action:focus-visible {
+            outline: 3px solid rgb(85 169 39 / 38%);
+            outline-offset: 3px;
         }
 
         .account-details {
@@ -465,13 +335,13 @@
         }
 
         @media (max-width: 900px) {
-            .sidebar {
-                width: 224px;
+            .main {
+                margin-left: 0;
+                padding-inline: 1.4rem;
             }
 
-            .main {
-                margin-left: 224px;
-                padding-inline: 1.4rem;
+            .stats-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
             .welcome {
@@ -482,33 +352,6 @@
         }
 
         @media (max-width: 680px) {
-            .sidebar {
-                position: static;
-                width: auto;
-                padding: 0.9rem 1rem;
-            }
-
-            .brand {
-                padding: 0.15rem 0.25rem 0.8rem;
-            }
-
-            .nav-label,
-            .sidebar-bottom,
-            .menu a:first-child {
-                display: none;
-            }
-
-            .menu {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .menu a {
-                min-height: 2.55rem;
-                justify-content: center;
-                padding: 0.55rem;
-                font-size: 0.78rem;
-            }
-
             .main {
                 min-height: auto;
                 margin-left: 0;
@@ -533,6 +376,14 @@
                 grid-template-columns: 1fr;
             }
 
+            .stats-grid {
+                gap: 0.7rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
             .card {
                 min-height: 195px;
             }
@@ -549,73 +400,12 @@
     </style>
 </head>
 <body>
+    <x-site-navigation />
+
     <div class="app-shell">
-        <aside class="sidebar">
-            <a class="brand" href="{{ route('dashboard') }}">
-                <span class="brand-mark" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 4c-8 0-14 3.5-14 10a6 6 0 0 0 6 6c6.5 0 8-7 8-16Z"/>
-                        <path d="M4 21c2-5 5.5-8.5 11-11"/>
-                    </svg>
-                </span>
-                <span>
-                    <span class="brand-name">SDS 2026 · GREEN IoT</span>
-                    <span class="brand-caption">UES · Facultad Multidisciplinaria Oriental</span>
-                </span>
-            </a>
-
-            <p class="nav-label">Administración</p>
-            <nav class="menu" aria-label="Menú principal">
-                <a class="active" href="{{ route('dashboard') }}" aria-current="page">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/>
-                    </svg>
-                    Panel principal
-                </a>
-                <a href="{{ route('publications.index') }}">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M5 4h14a2 2 0 0 1 2 2v14H7a4 4 0 0 1-4-4V6a2 2 0 0 1 2-2Z"/>
-                        <path d="M7 20a3 3 0 0 1 0-6h14M8 8h8M8 11h6"/>
-                    </svg>
-                    Publicaciones
-                </a>
-                <a href="{{ route('evidences.index') }}">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M4 5h6l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/>
-                        <path d="M12 11v6m-2-2 2 2 2-2"/>
-                    </svg>
-                    Evidencias
-                </a>
-                <a href="{{ route('blog.index') }}">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M14 3h7v7M10 14 21 3M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/>
-                    </svg>
-                    Ver sitio público
-                </a>
-            </nav>
-
-            <div class="sidebar-bottom">
-                <hr class="sidebar-divider">
-                <div class="profile" aria-label="Cuenta activa">
-                    <p class="profile-name">{{ $usuario->name }}</p>
-                    <p class="profile-email">{{ $usuario->email }}</p>
-                </div>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button class="logout" type="submit">Cerrar sesión</button>
-                </form>
-            </div>
-        </aside>
-
         <main class="main">
             <header class="topbar">
                 <p class="breadcrumb">SDS 2026 <span aria-hidden="true">/</span> <strong>Panel principal</strong></p>
-                <a class="view-site" href="{{ route('blog.index') }}">
-                    Ver blog público
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M14 3h7v7M10 14 21 3M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/>
-                    </svg>
-                </a>
             </header>
 
             <div class="content">
@@ -627,10 +417,30 @@
                     </div>
                     <a class="welcome-action" href="{{ route('publications.create') }}">
                         Nueva publicación
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M5 12h14m-6-6 6 6-6 6"/>
-                        </svg>
                     </a>
+                </section>
+
+                <section class="stats-grid" aria-label="Resumen del contenido">
+                    <article class="stat-card">
+                        <span class="stat-label">Publicaciones</span>
+                        <strong class="stat-value" data-stat="publications">{{ $publicationsCount }}</strong>
+                        <span class="stat-detail">Entradas en total</span>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Publicadas</span>
+                        <strong class="stat-value" data-stat="published">{{ $publishedCount }}</strong>
+                        <span class="stat-detail">Visibles en el blog</span>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Borradores</span>
+                        <strong class="stat-value" data-stat="drafts">{{ $draftsCount }}</strong>
+                        <span class="stat-detail">Pendientes de publicar</span>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Evidencias</span>
+                        <strong class="stat-value" data-stat="evidences">{{ $evidencesCount }}</strong>
+                        <span class="stat-detail">Archivos registrados</span>
+                    </article>
                 </section>
 
                 <section aria-labelledby="tools-title">
@@ -653,9 +463,6 @@
                             <p>Redacta noticias, administra borradores y publica contenido en el blog.</p>
                             <a class="card-link" href="{{ route('publications.index') }}">
                                 Administrar publicaciones
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M5 12h14m-6-6 6 6-6 6"/>
-                                </svg>
                             </a>
                         </article>
 
@@ -670,9 +477,6 @@
                             <p>Registra y consulta archivos de respaldo relacionados con las actividades.</p>
                             <a class="card-link" href="{{ route('evidences.index') }}">
                                 Administrar evidencias
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M5 12h14m-6-6 6 6-6 6"/>
-                                </svg>
                             </a>
                         </article>
 
@@ -703,9 +507,6 @@
                             <p>Plataforma informativa de actividades y contenido académico de la UES-FMO.</p>
                             <a class="card-link" href="{{ route('home') }}">
                                 Ir al inicio del sitio
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M5 12h14m-6-6 6 6-6 6"/>
-                                </svg>
                             </a>
                         </article>
                     </div>

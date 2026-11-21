@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Publication;
 use DateTimeInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use RuntimeException;
 
@@ -15,7 +17,7 @@ class PublicationController extends Controller
     public function index()
     {
         $publications = Publication::query()
-            ->with('images')
+            ->with(['images', 'category'])
             ->orderByDesc('updated_at')
             ->paginate(10);
 
@@ -26,6 +28,7 @@ class PublicationController extends Controller
     {
         return view('admin.publications.form', [
             'publication' => new Publication,
+            'categories' => Category::query()->orderBy('name')->get(),
         ]);
     }
 
@@ -48,12 +51,15 @@ class PublicationController extends Controller
 
     public function edit(Publication $publication)
     {
-        return view('admin.publications.form', compact('publication'));
+        return view('admin.publications.form', [
+            'publication' => $publication,
+            'categories' => Category::query()->orderBy('name')->get(),
+        ]);
     }
 
     public function update(Request $request, Publication $publication)
     {
-        $validated = $this->validatedData($request);
+        $validated = $this->validatedData($request, $publication);
         $images = $validated['images'] ?? [];
         unset($validated['images']);
 
@@ -86,33 +92,76 @@ class PublicationController extends Controller
             ->with('status', 'La publicación se actualizó correctamente.');
     }
 
-    private function validatedData(Request $request): array
+    public function destroy(Publication $publication)
     {
-        return $request->validate([
+        $imagePaths = $publication->images()->pluck('path')->all();
+        if ($publication->image_path) {
+            $imagePaths[] = $publication->image_path;
+        }
+
+        $publication->delete();
+
+        $disk = Storage::disk('public');
+        foreach (array_unique($imagePaths) as $path) {
+            if ($disk->exists($path) && ! $disk->delete($path)) {
+                throw new RuntimeException('La publicación se eliminó, pero no fue posible borrar una imagen asociada.');
+            }
+        }
+
+        return redirect()
+            ->route('publications.index')
+            ->with('status', 'La publicación y sus imágenes se eliminaron correctamente.');
+    }
+
+    private function validatedData(Request $request, ?Publication $publication = null): array
+    {
+        $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255'],
+            'authors' => ['required_if:status,published', 'nullable', 'string', 'max:500'],
             'excerpt' => ['nullable', 'string', 'max:1000'],
             'content' => ['required', 'string', 'max:50000'],
-            'category' => ['nullable', 'string', 'max:100'],
+            'category_id' => ['required_if:status,published', 'nullable', 'integer', 'exists:categories,id'],
+            'activity_date' => ['required_if:status,published', 'nullable', 'date'],
             'status' => ['required', 'in:draft,published'],
             'published_at' => ['nullable', 'date'],
-            'images' => ['nullable', 'array', 'max:2'],
+            'images' => ['nullable', 'array', 'max:8'],
             'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ], [
             'title.required' => 'El título es obligatorio.',
             'title.max' => 'El título no puede superar los 255 caracteres.',
+            'authors.required_if' => 'Indica el autor o los autores para publicar.',
+            'authors.max' => 'Los autores no pueden superar los 500 caracteres.',
             'excerpt.max' => 'El resumen no puede superar los 1000 caracteres.',
             'content.required' => 'El contenido es obligatorio.',
             'content.max' => 'El contenido no puede superar los 50000 caracteres.',
-            'category.max' => 'La categoría no puede superar los 100 caracteres.',
+            'category_id.required_if' => 'Selecciona la categoría o actividad para publicar.',
+            'category_id.exists' => 'La categoría seleccionada no existe.',
+            'activity_date.required_if' => 'Indica la fecha en que se realizó la actividad.',
+            'activity_date.date' => 'Ingresa una fecha de actividad válida.',
             'status.required' => 'Selecciona si guardar como borrador o publicar.',
             'status.in' => 'El estado seleccionado no es válido.',
             'published_at.date' => 'Ingresa una fecha de publicación válida.',
-            'images.max' => 'Puedes adjuntar hasta 2 imágenes por publicación.',
+            'images.max' => 'Puedes adjuntar hasta 8 imágenes por publicación.',
             'images.*.image' => 'Cada archivo de portada debe ser una imagen.',
             'images.*.uploaded' => 'No se pudo subir una imagen. Verifica que pese menos de 5 MB y vuelve a intentarlo.',
             'images.*.mimes' => 'Las imágenes deben ser JPG, PNG o WebP.',
             'images.*.max' => 'Cada imagen de portada no puede superar los 5 MB.',
         ]);
+
+        $validator->after(function ($validator) use ($request, $publication): void {
+            $hasExistingEvidence = $publication
+                && ($publication->image_path || $publication->images()->exists());
+
+            if (
+                $request->input('status') === 'published'
+                && empty($request->file('images'))
+                && ! $hasExistingEvidence
+            ) {
+                $validator->errors()->add('images', 'Adjunta al menos una imagen de evidencia para publicar.');
+            }
+        });
+
+        return $validator->validate();
     }
 
     private function uniqueSlug(string $title, ?int $ignoreId = null): string

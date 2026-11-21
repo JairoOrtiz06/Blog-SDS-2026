@@ -4,16 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Publication extends Model
 {
     protected $fillable = [
         'title',
+        'authors',
         'slug',
         'excerpt',
         'content',
-        'category',
+        'category_id',
+        'activity_date',
         'image_path',
         'status',
         'published_at',
@@ -23,6 +26,7 @@ class Publication extends Model
     {
         return [
             'published_at' => 'datetime',
+            'activity_date' => 'date',
         ];
     }
 
@@ -39,5 +43,10 @@ class Publication extends Model
     public function images(): HasMany
     {
         return $this->hasMany(PublicationImage::class)->orderBy('position');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }

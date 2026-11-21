@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f5f8f2">
+    <meta name="description" content="SDS 2026: conoce la Semana de Sistemas de la UES-FMO, Green IoT, sus actividades y patrocinadores.">
+    <link rel="canonical" href="{{ route('home') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_SV">
+    <meta property="og:site_name" content="SDS 2026 · GREEN IoT">
+    <meta property="og:title" content="SDS 2026 | Green IoT">
+    <meta property="og:description" content="Conoce la Semana de Sistemas de la UES-FMO, Green IoT, sus actividades y patrocinadores.">
+    <meta property="og:url" content="{{ route('home') }}">
+    <meta property="og:image" content="{{ asset('images/logo-sds-green-iot.png') }}">
+    <meta property="og:image:alt" content="Logotipo SDS 2026 Green IoT">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SDS 2026 | Green IoT">
+    <meta name="twitter:description" content="Conoce la Semana de Sistemas de la UES-FMO, Green IoT, sus actividades y patrocinadores.">
+    <meta name="twitter:image" content="{{ asset('images/logo-sds-green-iot.png') }}">
     <title>SDS 2026 | Green IoT</title>
     <style>
         :root {
@@ -97,27 +112,6 @@
             flex-wrap: wrap;
             justify-content: flex-end;
             gap: 0.65rem;
-        }
-
-        .register-link {
-            display: inline-flex;
-            min-height: 2.65rem;
-            align-items: center;
-            justify-content: center;
-            padding: 0.6rem 0.95rem;
-            border: 1px solid var(--green);
-            border-radius: 0.65rem;
-            color: white;
-            background: var(--green);
-            font-size: 0.84rem;
-            font-weight: 700;
-            text-decoration: none;
-            transition: background-color 150ms ease;
-        }
-
-        .register-link:hover,
-        .register-link:focus-visible {
-            background: #1d5e25;
         }
 
         main {
@@ -524,33 +518,7 @@
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <a class="brand" href="{{ url('/') }}">
-            <span class="brand-mark" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 4c-8 0-14 3.5-14 10a6 6 0 0 0 6 6c6.5 0 8-7 8-16Z"/>
-                    <path d="M4 21c2-5 5.5-8.5 11-11"/>
-                </svg>
-            </span>
-            SDS 2026 · GREEN IoT
-        </a>
-        <nav class="header-actions" aria-label="Acceso a la cuenta">
-            <a class="login-link" href="#patrocinadores">Patrocinadores</a>
-            <a class="login-link" href="{{ route('blog.index') }}">Publicaciones</a>
-            @guest
-                <a class="register-link" href="{{ route('register') }}">Crear cuenta</a>
-                <a class="login-link" href="{{ route('login') }}">Iniciar sesión</a>
-            @else
-                @if (auth()->user()->isAdmin())
-                    <a class="login-link" href="{{ route('dashboard') }}">Panel administrativo</a>
-                @endif
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button class="login-link" type="submit">Cerrar sesión</button>
-                </form>
-            @endguest
-        </nav>
-    </header>
+    <x-site-navigation />
 
     <main>
         @if (session('status'))
