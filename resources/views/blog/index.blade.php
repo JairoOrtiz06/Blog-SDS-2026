@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f5f8f2">
+    <meta name="description" content="Noticias, ideas y contenido sobre Green IoT y la Semana de Sistemas 2026 de la UES-FMO.">
+    <link rel="canonical" href="{{ route('blog.index') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_SV">
+    <meta property="og:site_name" content="SDS 2026 · GREEN IoT">
+    <meta property="og:title" content="Publicaciones SDS 2026">
+    <meta property="og:description" content="Noticias, ideas y contenido sobre Green IoT y la Semana de Sistemas 2026 de la UES-FMO.">
+    <meta property="og:url" content="{{ route('blog.index') }}">
+    <meta property="og:image" content="{{ asset('images/logo-sds-green-iot.png') }}">
+    <meta property="og:image:alt" content="Logotipo SDS 2026 Green IoT">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Publicaciones SDS 2026">
+    <meta name="twitter:description" content="Noticias, ideas y contenido sobre Green IoT y la Semana de Sistemas 2026 de la UES-FMO.">
+    <meta name="twitter:image" content="{{ asset('images/logo-sds-green-iot.png') }}">
     <title>Publicaciones | SDS 2026</title>
     <style>
         :root {
@@ -197,24 +212,7 @@
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <a class="brand" href="{{ route('home') }}">SDS 2026 · GREEN IoT</a>
-        <nav class="header-links" aria-label="Navegación">
-            <a href="{{ route('home') }}">Inicio</a>
-            @guest
-                <a href="{{ route('register') }}">Crear cuenta</a>
-                <a href="{{ route('login') }}">Iniciar sesión</a>
-            @else
-                @if (auth()->user()->isAdmin())
-                    <a href="{{ route('dashboard') }}">Panel administrativo</a>
-                @endif
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit">Cerrar sesión</button>
-                </form>
-            @endguest
-        </nav>
-    </header>
+    <x-site-navigation />
 
     <main>
         <section class="intro">
@@ -234,8 +232,8 @@
             <select name="category" aria-label="Filtrar por categoría">
                 <option value="">Todas las categorías</option>
                 @foreach ($categories as $category)
-                    <option value="{{ $category }}" @selected(($filters['category'] ?? '') === $category)>
-                        {{ $category }}
+                    <option value="{{ $category->id }}" @selected((string) ($filters['category'] ?? '') === (string) $category->id)>
+                        {{ $category->name }}
                     </option>
                 @endforeach
             </select>
@@ -269,7 +267,7 @@
                     @endif
                     <div class="publication-card-body">
                         @if ($publication->category)
-                            <span class="category">{{ $publication->category }}</span>
+                            <span class="category">{{ $publication->category->name }}</span>
                         @endif
                         <h2>
                             <a href="{{ route('blog.show', $publication->slug) }}">
@@ -281,9 +279,9 @@
                         @else
                             <p>{{ \Illuminate\Support\Str::limit(strip_tags($publication->content), 160) }}</p>
                         @endif
-                        @if ($publication->published_at)
-                            <time class="publication-date" datetime="{{ $publication->published_at->toDateString() }}">
-                                {{ $publication->published_at->format('d/m/Y') }}
+                        @if ($publication->activity_date)
+                            <time class="publication-date" datetime="{{ $publication->activity_date->toDateString() }}">
+                                {{ $publication->activity_date->format('d/m/Y') }}
                             </time>
                         @endif
                     </div>

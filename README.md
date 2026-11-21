@@ -7,6 +7,19 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Blog SDS 2026
+
+The application uses Laravel 12, PostgreSQL, Blade, and Tailwind CSS. Run
+`npm run build` after installing the Node dependencies to compile the frontend.
+
+To provision the initial administrator, set `ADMIN_NAME`, `ADMIN_EMAIL`, and
+`ADMIN_PASSWORD` in `.env`, then run `php artisan db:seed`. Use a unique email
+and a strong password; the seeder intentionally fails if credentials are
+missing or invalid.
+
+Evidence participant names are configured in `config/evidence.php`; students
+do not need application accounts to be selected for individual or pair evidence.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

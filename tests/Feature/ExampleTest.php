@@ -16,6 +16,12 @@ class ExampleTest extends TestCase
 
         $response->assertOk()
             ->assertSee('Patrocinadores de la SDS')
+            ->assertSee('global-site-header', false)
+            ->assertSee('>Inicio</a>', false)
+            ->assertSee('Patrocinadores')
+            ->assertSee('Publicaciones')
+            ->assertDontSee('Crear cuenta')
+            ->assertSee('Iniciar sesión')
             ->assertSee('images/logo-sds-green-iot.png')
             ->assertSee('<video', false)
             ->assertSee('Reproducir video de los patrocinadores')

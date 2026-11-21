@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#173a1d">
@@ -17,14 +18,11 @@
 
         body {
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background: linear-gradient(135deg, #f5f8f2, #eaf4e5);
-            padding: 20px;
         }
 
         .login-container {
+            margin: 4rem auto 2rem;
             background: white;
             width: 100%;
             max-width: 400px;
@@ -104,6 +102,8 @@
 
 <body>
 
+    <x-site-navigation />
+
     <div class="login-container">
 
         <h1>Blog SDS 2026</h1>
@@ -152,7 +152,7 @@
         </form>
 
         <p class="footer">
-            ¿No tienes cuenta? <a href="{{ route('register') }}">Crear cuenta</a>
+            Acceso reservado al administrador.
             <br><br>
             Semana de Sistemas 2026 | UES-FMO
         </p>

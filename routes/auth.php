@@ -3,14 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-// Mostrar y procesar el registro de cuentas.
-Route::get('/register', [AuthController::class, 'showRegistration'])
-    ->name('register');
-
-Route::post('/register', [AuthController::class, 'register'])
-    ->name('register.store');
-
-// Mostrar el formulario de inicio de sesión.
+// Acceso exclusivo para administración.
 Route::get('/login', [AuthController::class, 'showLogin'])
     ->name('login');
 

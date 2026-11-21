@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f5f8f2">
@@ -28,10 +29,11 @@
         .topbar,
         .publication-card,
         .empty-state {
-            padding: 1.25rem;
+            padding: 1.4rem;
             border: 1px solid #e1eadc;
-            border-radius: 0.9rem;
+            border-radius: 1rem;
             background: white;
+            box-shadow: 0 5px 18px rgb(23 58 29 / 4%);
         }
 
         .topbar {
@@ -40,7 +42,8 @@
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(120deg, #fff, #f8fbf6);
         }
 
         h1,
@@ -49,23 +52,57 @@
         }
 
         h1 {
-            margin: 0;
+            margin: 0.2rem 0 0;
+            font-size: clamp(1.45rem, 3vw, 1.9rem);
+            letter-spacing: -0.035em;
         }
 
-        .topbar p,
+        .eyebrow {
+            margin: 0 0 0.25rem;
+            color: #43813d;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .topbar .description,
         .metadata {
             color: #526052;
             line-height: 1.6;
         }
 
         .button {
-            display: inline-block;
-            padding: 0.75rem 1rem;
-            border-radius: 999px;
+            display: inline-flex;
+            min-height: 2.8rem;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.1rem;
+            border: 1px solid #287b2d;
+            border-radius: 0.65rem;
             color: white;
             background: #287b2d;
             font-weight: 700;
             text-decoration: none;
+            transition: background-color 150ms ease, transform 150ms ease;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            background: #205f26;
+            transform: translateY(-1px);
+        }
+
+        .toolbar-count {
+            display: inline-block;
+            margin-top: 0.6rem;
+            padding: 0.3rem 0.6rem;
+            border: 1px solid #e1eadc;
+            border-radius: 999px;
+            color: #526052;
+            background: white;
+            font-size: 0.76rem;
+            font-weight: 700;
         }
 
         .status-message {
@@ -87,10 +124,18 @@
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
+            transition: border-color 150ms ease, box-shadow 150ms ease;
+        }
+
+        .publication-card:hover {
+            border-color: #c8ddbf;
+            box-shadow: 0 9px 24px rgb(23 58 29 / 7%);
         }
 
         .publication-card h2 {
             margin: 0 0 0.4rem;
+            font-size: 1.08rem;
+            letter-spacing: -0.015em;
         }
 
         .metadata {
@@ -104,14 +149,61 @@
             gap: 1rem;
         }
 
+        .actions form {
+            margin: 0;
+        }
+
         .state {
             display: inline-block;
-            padding: 0.35rem 0.65rem;
+            padding: 0.4rem 0.7rem;
             border-radius: 999px;
-            color: #205f26;
-            background: #eff9e9;
+            color: #526052;
+            background: #f0f2ef;
             font-size: 0.85rem;
             font-weight: 700;
+        }
+
+        .state--published {
+            color: #205f26;
+            background: #eff9e9;
+        }
+
+        .state--scheduled {
+            color: #895c0b;
+            background: #fff5d8;
+        }
+
+        .action-link {
+            display: inline-flex;
+            min-height: 2.4rem;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d5e5ce;
+            border-radius: 0.55rem;
+            color: #205f26;
+            background: white;
+            font-size: 0.83rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .action-link:hover,
+        .action-link:focus-visible {
+            border-color: #287b2d;
+            background: #eff9e9;
+        }
+
+        button.action-link {
+            color: #a22b2b;
+            border-color: #e8caca;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        button.action-link:hover,
+        button.action-link:focus-visible {
+            border-color: #a22b2b;
+            background: #fff5f5;
         }
 
         .empty-state {
@@ -131,12 +223,16 @@
     </style>
 </head>
 <body>
+    <x-site-navigation />
+
     <main>
         <header class="topbar">
             <div>
-                <p><a href="{{ route('dashboard') }}">← Volver al panel</a></p>
-                <h1>Administrar publicaciones</h1>
-                <p>Redacta contenido, guarda borradores o publícalo en el blog.</p>
+                <x-back-button href="{{ route('dashboard') }}" />
+                <p class="eyebrow">Gestión de contenido</p>
+                <h1>Publicaciones</h1>
+                <p class="description">Redacta contenido, guarda borradores o publícalo en el blog.</p>
+                <span class="toolbar-count">{{ $publications->total() }} registros</span>
             </div>
             <a class="button" href="{{ route('publications.create') }}">Nueva publicación</a>
         </header>
@@ -155,7 +251,8 @@
                     <div>
                         <h2>{{ $publication->title }}</h2>
                         <p class="metadata">
-                            {{ $publication->category ?: 'Sin categoría' }}
+                            {{ $publication->category?->name ?: 'Sin categoría' }}
+                            · Actividad: {{ $publication->activity_date?->format('d/m/Y') ?? 'Sin fecha' }}
                             · Actualizada {{ $publication->updated_at->format('d/m/Y H:i') }}
                         </p>
                     </div>
@@ -163,12 +260,21 @@
                         @if ($publication->status === 'draft')
                             <span class="state">Borrador</span>
                         @elseif (! $isPublic)
-                            <span class="state">Programada</span>
+                            <span class="state state--scheduled">Programada</span>
                         @else
-                            <span class="state">Publicada</span>
-                            <a href="{{ route('blog.show', $publication->slug) }}">Ver en el blog</a>
+                            <span class="state state--published">Publicada</span>
+                            <a class="action-link" href="{{ route('blog.show', $publication->slug) }}">Ver en el blog</a>
                         @endif
-                        <a href="{{ route('publications.edit', $publication) }}">Editar</a>
+                        <a class="action-link" href="{{ route('publications.edit', $publication) }}">Editar</a>
+                        <form
+                            action="{{ route('publications.destroy', $publication) }}"
+                            method="POST"
+                            onsubmit="return confirm('¿Eliminar esta publicación y sus imágenes? Esta acción no se puede deshacer.')"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button class="action-link action-link--danger" type="submit">Eliminar</button>
+                        </form>
                     </div>
                 </article>
             @empty
