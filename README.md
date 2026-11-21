@@ -1,72 +1,122 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Blog – Semana de Sistemas 2026
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicación web desarrollada con Laravel para la publicación y administración de noticias, actividades, talleres y eventos relacionados con la Semana de Sistemas 2026 de la Universidad de El Salvador.
 
-## Blog SDS 2026
+## Tecnologías utilizadas
 
-The application uses Laravel 12, PostgreSQL, Blade, and Tailwind CSS. Run
-`npm run build` after installing the Node dependencies to compile the frontend.
+- PHP
+- Laravel
+- PostgreSQL
+- JavaScript
+- Vite
+- HTML y CSS
+- Docker
 
-To provision the initial administrator, set `ADMIN_NAME`, `ADMIN_EMAIL`, and
-`ADMIN_PASSWORD` in `.env`, then run `php artisan db:seed`. Use a unique email
-and a strong password; the seeder intentionally fails if credentials are
-missing or invalid.
+## Características principales
 
-Evidence participant names are configured in `config/evidence.php`; students
-do not need application accounts to be selected for individual or pair evidence.
+- Visualización pública de publicaciones.
+- Administración de publicaciones.
+- Gestión de categorías.
+- Carga y administración de imágenes.
+- Gestión de evidencias y archivos adjuntos.
+- Panel administrativo.
 
-## About Laravel
+## Estructura del proyecto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- `app/`: modelos, controladores y lógica de la aplicación.
+- `database/`: migraciones, seeders y respaldos de la base de datos.
+- `public/`: archivos públicos y recursos compilados.
+- `resources/`: vistas y recursos del frontend.
+- `routes/`: definición de rutas.
+- `storage/`: almacenamiento de imágenes y archivos multimedia.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Docker y Docker Compose.
+- PHP y Composer.
+- Node.js y NPM.
+- PostgreSQL.
 
-## Learning Laravel
+El proyecto está preparado para integrarse en un entorno multiproyecto de Laravel con PostgreSQL compartido.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Instalación y configuración
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clonar el repositorio o descomprimir el paquete de entrega.
+2. Incorporar el proyecto al directorio de proyectos del entorno Laravel.
+3. Configurar el archivo `.env` de acuerdo con el entorno local.
+4. Instalar las dependencias de PHP:
 
-## Laravel Sponsors
+   ```bash
+   composer install
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+5. Instalar las dependencias del frontend:
 
-### Premium Partners
+   ```bash
+   npm ci
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+6. Compilar los recursos:
 
-## Contributing
+   ```bash
+   npm run build
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Base de datos
 
-## Code of Conduct
+El paquete de entrega incluye un respaldo PostgreSQL ubicado en:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`database/backups/blog_sds_2026.sql`
 
-## Security Vulnerabilities
+Crear previamente la base de datos `blog_sds_2026` y restaurar el respaldo utilizando PostgreSQL.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+La conexión debe configurarse en el archivo `.env`:
 
-## License
+```env
+DB_CONNECTION=pgsql
+DB_HOST=db
+DB_PORT=5432
+DB_DATABASE=blog_sds_2026
+DB_USERNAME=postgres
+DB_PASSWORD=tu_contraseña
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Los valores deben adaptarse a la configuración del entorno donde se ejecute el proyecto.
+
+## Almacenamiento de imágenes
+
+Las imágenes de las publicaciones están incluidas en:
+
+`storage/app/public/publications/`
+
+Configurar el enlace simbólico de almacenamiento mediante:
+
+```bash
+php artisan storage:link
+```
+
+## Ejecución
+
+Limpiar las cachés de configuración:
+
+```bash
+php artisan optimize:clear
+```
+
+Iniciar los servicios del entorno multiproyecto y acceder mediante el dominio local configurado.
+
+## Entrega del proyecto
+
+El paquete comprimido incluye:
+
+- Código fuente de Laravel.
+- Respaldo de la base de datos PostgreSQL.
+- Imágenes y archivos multimedia.
+- Recursos compilados del frontend.
+- Archivos de configuración de dependencias.
+
+**Repositorio:**  
+https://github.com/JairoOrtiz06/Blog-SDS-2026
+
+**Proyecto académico:** Semana de Sistemas 2026  
+**Universidad de El Salvador**
